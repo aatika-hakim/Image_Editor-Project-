@@ -3,16 +3,16 @@ filterSlider = document.querySelector(".slider input"),
 filterValue = document.querySelector(".filter-info .value"),
 filterName = document.querySelector(".filter-info .name"),
 filterOptions = document.querySelectorAll(".filters button"),
+rotateOptions = document.querySelectorAll(".rotate button"),
 previewImg = document.querySelector(".preview-img img"),
 chooseImgBtn = document.querySelector(".choose-img");
 
 // Default values
-let brightness = 100, saturation = 100, inversion = 0, grayscale = 0;
+let brightness = "100", saturation = "100", inversion = "0", grayscale = "0";
 
-const applyFilters = () => {
+const applyFilter = () => {
     previewImg.style.filter = `brightness(${brightness}%) saturate(${saturation}%) invert(${inversion}%) grayscale(${grayscale}%)`;
 }
-
 const loadImage = () => {
     // getting user selectd file
     let file = fileInput.files[0];
@@ -25,7 +25,7 @@ const loadImage = () => {
 
 filterOptions.forEach(option => {
     option.addEventListener("click", () => {
-        document.querySelector(".filters .active").classList.remove("active");
+        document.querySelector(".active").classList.remove("active");
         option.classList.add("active");
         filterName.innerText = option.innerText;
 
@@ -51,21 +51,26 @@ filterOptions.forEach(option => {
 
 const updateFilter = () => {
     filterValue.innerText = `${filterSlider.value}%`;
-    const selectedFilter = document.querySelector(".filter .active");
+    const selectedFilter = document.querySelector(".filters .active");
 
-    if(selectedFilter === "brightness"){
+    if(selectedFilter.id === "brightness"){
         brightness = filterSlider.value;
-    }else if(selectedFilter === "saturation"){
+    }else if(selectedFilter.id === "saturation"){
         saturation = filterSlider.value;
-    }else if(selectedFilter === "inversion"){
+    }else if(selectedFilter.id === "inversion"){
         inversion = filterSlider.value;
     }else{
         grayscale= filterSlider.value;
     }
 
-    applyFilters();
+    applyFilter();
 }
 
+rotateOptions.forEach(option => {
+    option.addEventListener("click", () => {
+        console.log(option);
+    });
+});
 
 fileInput.addEventListener("change",loadImage);
 filterSlider.addEventListener("input", updateFilter);
