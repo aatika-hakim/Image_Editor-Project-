@@ -42,7 +42,7 @@ body {
         margin-bottom: 10px;
     }
 
-    .controls .row {
+     .controls .row {
         width: 100%;
     }
 
@@ -159,6 +159,8 @@ body {
     align-items: center;
     justify-content: center;
     margin-left: 20px;
+   
+    /* height: 20%; */
 }
 
 .preview-img img {

@@ -9,8 +9,10 @@ chooseImgBtn = document.querySelector(".choose-img");
 
 // Default values
 let brightness = "100", saturation = "100", inversion = "0", grayscale = "0";
+let rotate = 0;
 
 const applyFilter = () => {
+    previewImg.style.rotate = `${rotate}deg`;
     previewImg.style.filter = `brightness(${brightness}%) saturate(${saturation}%) invert(${inversion}%) grayscale(${grayscale}%)`;
 }
 const loadImage = () => {
@@ -65,10 +67,16 @@ const updateFilter = () => {
 
     applyFilter();
 }
-
+        // adding event listener to all rotate buttons
 rotateOptions.forEach(option => {
     option.addEventListener("click", () => {
-        console.log(option);
+        if(option.id === "left"){
+            rotate -= 90;
+        } 
+        if(option.id === "right"){
+            rotate += 90;
+        } 
+        applyFilter();      
     });
 });
 
