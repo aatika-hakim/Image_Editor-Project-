@@ -14,9 +14,10 @@ let brightness = "100", saturation = "100", inversion = "0", grayscale = "0";
 let rotate = 0, flipHorizontal = 1, flipVertical= 1;
 
 const applyFilter = () => {
-    previewImg.style.rotate = `${rotate}deg`;
-    previewImg.style.scale = `${flipHorizontal}`;
-    previewImg.style.scale = `${flipVertical}`;
+    previewImg.style.transform = `rotate(${rotate}deg) scale(${flipHorizontal}, ${flipVertical})`;
+    // previewImg.style.rotate = `${rotate}deg`;
+    // previewImg.style.scale = `${flipHorizontal}`;
+    // previewImg.style.scale = `${flipVertical}`;
     previewImg.style.filter = `brightness(${brightness}%) saturate(${saturation}%) invert(${inversion}%) grayscale(${grayscale}%)`;
 }
 const loadImage = () => {
@@ -105,11 +106,22 @@ const saveImage = () => {
     // setting canvas height to actual height of img
     canvas.height = previewImg.naturalHeight;
 
-    ctx.drawImage(previewImg, 0, 0, canvas.width, canvas.height);
-    document.body.appendChild(canvas);
+    ctx.filter = `brightness(${brightness}%) saturate(${saturation}%) invert(${inversion}%) grayscale(${grayscale}%)`;
+
+    ctx.translate(canvas.width / 2, canvas.height / 2);
+    if(rotate !== 0){
+        ctx.rotate(rotate * Math.PI / 180);
+    }
+    ctx.scale(flipHorizontal , flipVertical);
+    ctx.drawImage(previewImg, -canvas.width / 2, -canvas.height / 2, canvas.width, canvas.height);
+   
+    const link = document.createElement("a");
+    link.download = "image.jpg";
+    link.href = canvas.toDataURL();
+    link.click();
 }
 
-fileInput.addEventListener("change",loadImage);
+fileInput.addEventListener("change",loadImage); 
 filterSlider.addEventListener("input", updateFilter);
 resetFilterBtn.addEventListener("click",resetFilter);
 chooseImgBtn.addEventListener("click",() => fileInput.click());
