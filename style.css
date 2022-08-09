@@ -160,8 +160,8 @@ body {
     align-items: center;
     justify-content: center;
     margin-left: 20px;
+    
    
-    /* height: 20%; */
 }
 
 .preview-img img {
@@ -169,7 +169,7 @@ body {
     max-height: 335px;
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit:contain;
 }
 
 .controls button {
